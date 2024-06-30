@@ -1,0 +1,12 @@
+Django>=5.0,<5.1
+rasa
+python-decouple
+dj-database-url
+django-allauth
+django-allauth-ui
+django-widget-tweaks
+django-tailwing
+tailwind
+requests
+python-dotenv
+facebook-sdk

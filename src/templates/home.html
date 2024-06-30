@@ -1,0 +1,111 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% block head_title %} Home {% endblock head_title %}
+  </title>
+    {% include "base/tailwind_css.html" %}
+    {% tailwind_css %}
+  <style>
+      html {
+          scroll-behavior: smooth;
+      }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="bg-black text-white font-sans">
+  {% include "base/messages.html" with messages=messages %}
+  {% block content %}
+         <!-- Header -->
+    <header class="bg-black p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <img src="sample.png" alt="Logo" class="h-8 inline"> <!-- Replace with your logo -->
+            </div>
+            <div>
+                <button onclick="location.href = '/accounts/login'" class="bg-primary-600 text-white px-4 py-2 rounded">Log In</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="text-center py-20 bg-black">
+        <h1 class="text-4xl font-bold mb-4">Turn Instagram Comments into Cash</h1>
+        <p class="text-lg mb-6">Your Instagram followers are a goldmine, waiting to be tapped. Unleash the power of AI
+            to convert comments into customers.</p>
+        <button class="bg-primary-600 text-white px-6 py-3 rounded-full">Book a call</button>
+        <div class="mt-10">
+            <div class="w-full max-w-2xl mx-auto bg-gray-800 h-64 flex items-center justify-center">
+                <button class="bg-black text-white p-4 rounded-full">▶</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Sales Agent Section -->
+    <section class="py-20 bg-white text-black">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 p-6">
+                <h2 class="text-3xl font-bold mb-4">1. AI Sales Agent</h2>
+                <p>Our cutting-edge AI agent is your secret weapon for converting Instagram comments into sales. Trained
+                    on your unique sales funnel and tailored instructions, it engages with interested followers,
+                    building rapport, addressing objections, and seamlessly guiding them towards a purchase.</p>
+            </div>
+            <div class="lg:w-1/2 p-6">
+                <img src="sample.png" alt="AI Sales Agent" class="w-full"> <!-- Replace with your image -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Customizable Sales Funnel Section -->
+    <section class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto flex flex-col lg:flex-row-reverse items-center">
+            <div class="lg:w-1/2 p-6">
+                <h2 class="text-3xl font-bold mb-4">2. Customizable Sales Funnel</h2>
+                <p>Craft a comprehensive, multi-step sales funnel tailored to your products or services. Our
+                    user-friendly interface allows you to outline each stage of the funnel, ensuring your AI agent
+                    follows a strategic, proven path to conversion.</p>
+            </div>
+            <div class="lg:w-1/2 p-6">
+                <img src="sample.png" alt="Customizable Sales Funnel" class="w-full"> <!-- Replace with your image -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sales Graphs Section -->
+    <section class="py-20 bg-white text-black">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 p-6">
+                <h2 class="text-3xl font-bold mb-4">3. Sales Graphs</h2>
+                <p>Gain valuable insights into your Instagram sales performance with comprehensive, AI-generated sales
+                    graphs. Track your revenue, conversion rates, and other key metrics, empowering you to make
+                    data-driven decisions and optimize your strategies.</p>
+            </div>
+            <div class="lg:w-1/2 p-6">
+                <img src="sample.png" alt="Sales Graphs" class="w-full"> <!-- Replace with your image -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Book a Call Section -->
+    <section class="py-20 bg-gray-900 text-white text-center">
+        <h2 class="text-3xl font-bold mb-4">Book A Call</h2>
+        <div class="w-full max-w-2xl mx-auto bg-gray-800 h-64 flex items-center justify-center">
+            <!-- Booking form or calendar integration can go here -->
+            <button class="bg-blue-500 text-white px-6 py-3 rounded-full">Book Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-4 text-center text-white">
+        <div class="container mx-auto">
+            <p>Privacy Policy | Terms of Use</p>
+        </div>
+    </footer>
+  {% endblock %}  
+  {% include "base/js.html" %}
+</script>
+</body>
+</html>

@@ -2,24 +2,29 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import F
 from.models import Media, Comment
-from django.contrib.auth.decorators import login_required
 from unchained.settings import REDIRECT_URI, APP_ID, APP_SECRET
 from.instagram_graph_api import InstagramGraphAPI
+from django.contrib.auth.decorators import login_required
 import requests
-
-# Create your views here.
 
 class InstagramView:
     def __init__(self):
         self.instagram_api = InstagramGraphAPI(app_id=APP_ID, app_secret=APP_SECRET, redirect_uri=REDIRECT_URI)
 
-    def get_user_media(self, request):
-        user_media = self.instagram_api.get_user_media()
-        if user_media is None:
-            return render(request, "instagram_media.html", {"user_media": []})  
-        for media in user_media:
-            Media.objects.create(image_url=media["image_url"], caption=media["caption"], likes=media["likes"], comments=media["comments"])
-        return render(request, "instagram_media.html", {"user_media": user_media})
+    def get_user_media(self, request, *args, **kwargs):
+        try:
+            user_media = self.instagram_api.get_user_media()
+            if user_media is None:
+                return render(request, "instagram_media.html", {"user_media": []})
+            for media in user_media:
+                try:
+                    Media.objects.create(image_url=media["image_url"], caption=media["caption"], likes=media["likes"], comments=media["comments"])
+                except Exception as e:
+                    print(f"Error creating Media object: {e}")
+            return render(request, "instagram_media.html", {"user_media": user_media})
+        except Exception as e:
+            print(f"Error fetching user media: {e}")
+            return render(request, "instagram_media.html", {"user_media": []})
 
     def monitor_comments(self, request):
         comments = self.instagram_api.monitor_comments()
@@ -36,13 +41,6 @@ class InstagramView:
         return None
 
 @login_required
-def home_view(request):
-    instagram_view = InstagramView()
-    user_media = instagram_view.get_user_media(request)
-    instagram_view.monitor_comments(request)  # Monitor comments in the background
-    return render(request, "home.html", {"user_media": user_media})
-
-@login_required
 def get_access_token(request):
     # Redirect the user to the Instagram authorization URL
     auth_url = f"https://api.instagram.com/oauth/authorize/?client_id={APP_ID}&redirect_uri={REDIRECT_URI}&scope=instagram_basic,pages_show_list"
@@ -56,3 +54,17 @@ def get_token(request):
     response = requests.post(token_url)
     access_token = response.json()["access_token"]
     return access_token
+
+@login_required
+def home_view(request):
+    access_token = get_access_token(request)
+    token = get_token(request)
+    instagram_view = InstagramView()
+    user_media = instagram_view.get_user_media(request)
+    #instagram_view.monitor_comments(request)  # Monitor comments in the background
+    return render(request, "test.html", {"user_media": user_media})
+
+def get_user_media_view(request):
+    instagram_view = InstagramView()
+    user_media = instagram_view.get_user_media(request)
+    return render(request, 'test.html', {'user_media': user_media})

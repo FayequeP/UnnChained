@@ -9,8 +9,13 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
+from pickle import TRUE
+from decouple import config
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 #for instagram
 #change the access token after August 15,2024
-APP_ID = "2138642626492504"
-APP_SECRET = "a4ad394fec58802cb4d0638da39e8aae"
-ACCESS_TOKEN = "EAAeZAFYoNuFgBO6SHTFG4yRezRr7OULGlCPzenZAziQDcGFemXT3w8AmnwVuWeA5kXJ0yk8NKc205ibQV7FEOSWapScEYGecqqFICmOITUbYOdz07NU1WfZCv9VyZBvxTGA4Vnpum4Ot5HUIL35LOGVWyBZAW6RaEfHqJ9xLFF2Bj0abMqaVKqvAUhhL8y3KC"
-REDIRECT_URI = "http://localhost:8000/EAAeZAFYoNuFgBO6SHTFG4yRezRr7OULGlCPzenZAziQDcGFemXT3w8AmnwVuWeA5kXJ0yk8NKc205ibQV7FEOSWapScEYGecqqFICmOITUbYOdz07NU1WfZCv9VyZBvxTGA4Vnpum4Ot5HUIL35LOGVWyBZAW6RaEfHqJ9xLFF2Bj0abMqaVKqvAUhhL8y3KC"
+APP_ID = str(os.getenv('APP_ID'))
+APP_SECRET = str(os.getenv('APP_SECRET'))
+ACCESS_TOKEN = str(os.getenv('ACCESS_TOKEN'))
+REDIRECT_URI = str(os.getenv('REDIRECT_URI'))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -33,7 +38,15 @@ SECRET_KEY = 'django-insecure-j*o=5b@^#&33h+vjzs!c*v1f%r(m24km(i$0^$u_ryz@*cbl9s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    ".vercel.app",
+]
+if DEBUG:
+    ALLOWED_HOSTS += [
+        '127.0.0.1',
+        "localhost",
+        ".vercel.app",
+    ]
 
 
 # Application definition
@@ -47,6 +60,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #my apps
     'instagram',
+    'profiles',
+    #third-partyapp
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+    "allauth_ui",
+    'allauth',
+    'allauth.account',
+    "widget_tweaks",
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +79,9 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'unchained.urls'
@@ -90,6 +115,17 @@ DATABASES = {
     }
 }
 
+""" DATABASE_URL = config("DATABASE_URL", cast = str)
+if DATABASE_URL is not None:
+    import dj_database_url
+    DATABASES = {
+    'default': dj_database_url.config(
+        default = "DATABASE_URL",
+        conn_health_checks=True,
+        )
+}
+"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -109,6 +145,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Django allauth config
+LOGIN_REDIRECT_URL = "/dashboard/"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+AUTHENTICATION_BACKENDS = [
+    #...
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    #...
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -121,11 +169,32 @@ USE_I18N = True
 
 USE_TZ = True
 
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_BASE_DIR = BASE_DIR / "staticfiles"
+STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / "vendors"
+
+#source(s) for python manage.py collectstatic
+STATICFILES_DIRS = [
+    STATICFILES_BASE_DIR
+]
+
+#output for python manage.py collectstatic
+#local cdn
+STATIC_ROOT = BASE_DIR.parent / "local-cdn"
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / "prod-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

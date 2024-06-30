@@ -1,0 +1,21 @@
+{% load widget_tweaks %}
+{% csrf_token %}
+{% if redirect_field_value %}
+    <input type="hidden"
+           name="{{ redirect_field_name }}"
+           value="{{ redirect_field_value }}" />
+{% endif %}
+{% include "account/_non_field_errors.html" %}
+{% for field in form.visible_fields %}
+    <div class="mb-4">
+        {{ field|add_label_class:"block mb-2 text-sm font-medium text-white" }}
+        {% if field.errors %}
+            {% render_field field class="bg-gray-700 border-gray-600 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400" %}
+        {% else %}
+            {% render_field field class="bg-gray-700 border-gray-600 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400" %}
+        {% endif %}
+        {% for error in field.errors %}
+            <span class="flex items-center max-w-xs mt-1 ml-1 text-xs font-medium tracking-wide text-red-500">{{ error }}</span>
+        {% endfor %}
+    </div>
+{% endfor %}
