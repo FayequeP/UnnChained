@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-from pickle import TRUE
+from pickle import FALSE, TRUE
 from decouple import config
 from pathlib import Path
 from dotenv import load_dotenv
@@ -36,7 +36,7 @@ REDIRECT_URI = str(os.getenv('REDIRECT_URI'))
 SECRET_KEY = 'django-insecure-j*o=5b@^#&33h+vjzs!c*v1f%r(m24km(i$0^$u_ryz@*cbl9s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     ".vercel.app",
