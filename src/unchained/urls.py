@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-from .views import home_page_view
+from instagram.views import InstagramView, get_token, get_access_token, home_view 
+from .views import home_page_view, login
 
 urlpatterns = [
     path('', home_page_view),
     path('admin/', admin.site.urls),
+    path('login/', login, name="login"),
+    path('home/', home_view, name='home'),
+    path('get_access_token/', get_access_token, name='get_access_token'),
+    path('get_token/', get_token, name='get_token'),
 ]

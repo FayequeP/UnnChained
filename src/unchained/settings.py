@@ -19,6 +19,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+#for instagram
+#change the access token after August 15,2024
+APP_ID = "2138642626492504"
+APP_SECRET = "a4ad394fec58802cb4d0638da39e8aae"
+ACCESS_TOKEN = "EAAeZAFYoNuFgBO6SHTFG4yRezRr7OULGlCPzenZAziQDcGFemXT3w8AmnwVuWeA5kXJ0yk8NKc205ibQV7FEOSWapScEYGecqqFICmOITUbYOdz07NU1WfZCv9VyZBvxTGA4Vnpum4Ot5HUIL35LOGVWyBZAW6RaEfHqJ9xLFF2Bj0abMqaVKqvAUhhL8y3KC"
+REDIRECT_URI = "http://localhost:8000/EAAeZAFYoNuFgBO6SHTFG4yRezRr7OULGlCPzenZAziQDcGFemXT3w8AmnwVuWeA5kXJ0yk8NKc205ibQV7FEOSWapScEYGecqqFICmOITUbYOdz07NU1WfZCv9VyZBvxTGA4Vnpum4Ot5HUIL35LOGVWyBZAW6RaEfHqJ9xLFF2Bj0abMqaVKqvAUhhL8y3KC"
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-j*o=5b@^#&33h+vjzs!c*v1f%r(m24km(i$0^$u_ryz@*cbl9s'
 

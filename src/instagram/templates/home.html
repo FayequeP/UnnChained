@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Instagram Media</h1>
+  <ul>
+    {% for media in user_media %}
+      <li>
+        <img src="{{ media.images.standard_resolution.url }}" alt="{{ media.caption }}">
+        <p>{{ media.caption }}</p>
+        <p> Likes: {{ media.likes.count }} </p>
+        <p> Comments: {{ media.comments.count }} </p>
+        <div>
+          <label>Toggle Algorithm:</label>
+          <input type="checkbox" id="algorithm-toggle" />
+        </div>
+        <div>
+          <label>Keyword:</label>
+          <input type="text" id="keyword" />
+        </div>
+        <div>
+          <label>Funnel:</label>
+          <textarea id="funnel" rows="5" cols="50"></textarea>
+        </div>
+        <div>
+          <label>Additional Instructions:</label>
+          <textarea id="instructions" rows="5" cols="50"></textarea>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

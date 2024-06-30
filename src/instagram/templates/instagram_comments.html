@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Instagram Comments</h1>
+  <ul>
+    {% for comment in comments %}
+      <li>
+        <h2>{{ comment.text }}</h2>
+        <p>From: {{ comment.from.username }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Instagram Media</h1>
+  <ul>
+    {% for media in user_media %}
+      <li>
+        <img src="{{ media.image_url }}" alt="Post Image">
+        <h2>{{ media.caption }}</h2>
+        <p>Likes: {{ media.likes }}</p>
+        <p>Comments: {{ media.comments }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
