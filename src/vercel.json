@@ -2,7 +2,7 @@
 
     "builds": [{
 
-        "src": "unchained/wsgi.py",
+        "src": "src/unchained/wsgi.py",
 
         "use": "@vercel/python",
 
