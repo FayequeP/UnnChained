@@ -1,5 +1,18 @@
 {
 
+    "builds": [{
+
+        "src": "src/unchained/wsgi.py",
+
+        "use": "@vercel/vercel-python-wsgi",
+
+        "config": {
+            "maxLambdaSize": "15mb",
+            "runtime": "python 3.10.11"
+        }
+
+    }],
+
     "routes": [
 
         {
