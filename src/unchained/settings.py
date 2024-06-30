@@ -102,7 +102,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'unchained.wsgi.application'
+WSGI_APPLICATION = 'unchained.wsgi.app'
 
 
 # Database
