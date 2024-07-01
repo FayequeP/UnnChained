@@ -40,12 +40,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     ".vercel.app",
+    ".choreoapps.dev",
 ]
 if DEBUG:
     ALLOWED_HOSTS += [
         '127.0.0.1',
         "localhost",
         ".vercel.app",
+        ".choreoapps.dev",
     ]
 
 
