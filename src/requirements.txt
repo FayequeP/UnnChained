@@ -5,7 +5,7 @@ dj-database-url
 django-allauth
 django-allauth-ui
 django-widget-tweaks
-django-tailwing
+django-tailwind
 tailwind
 requests
 python-dotenv
