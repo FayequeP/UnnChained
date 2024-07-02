@@ -41,6 +41,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     ".vercel.app",
     ".choreoapps.dev",
+    ".e1-us-east-azure.choreoapps.dev",
 ]
 if DEBUG:
     ALLOWED_HOSTS += [
@@ -48,6 +49,7 @@ if DEBUG:
         "localhost",
         ".vercel.app",
         ".choreoapps.dev",
+        ".e1-us-east-azure.choreoapps.dev",
     ]
 
 
